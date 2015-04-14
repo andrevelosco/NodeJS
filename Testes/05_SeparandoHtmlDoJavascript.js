@@ -1,0 +1,18 @@
+// Carregando HTML separado Javascript
+
+var http = require('http');
+var fs = require('fs');
+
+var server = http.createServer(function(request, response){
+	// A constante __dirname retorna o diretório raiz da
+	// aplicação.
+	fs.readFile(__dirname + '/05_index.html', function(erro, html){
+		response.writeHeader(200, {'Content-Type': 'text/html'});
+		response.write(html);
+		response.end();
+	});
+});
+
+server.listen(3000, function(){
+	console.log('Servidor http Rodando HTML separado Javascript');
+});
