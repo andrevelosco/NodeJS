@@ -1,0 +1,23 @@
+<% include ../header %> 
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io.connect('http://localhost:3000');
+      socket.on('toClient', function (msg) {
+        document.getElementById('historico').innerHTML += msg;
+      });
+      var enviar = function(){
+        var nome = document.getElementById('nome').value; 
+        var msg = document.getElementById('msg').value;
+        socket.emit('toServer', {nome: nome, msg: msg}); 
+      };
+    </script>
+  
+    <h1>Chat Real-time </h1>
+    <input type="hidden" id="nome" value="<%- usuario.nome %>"> 
+    <input type="text" id="msg" placeholder="Mensagem">
+    <button id="enviar" onclick="enviar();">Enviar</button>
+    <hr>
+    <div id="historico"></div>
+ 
+ <% include ../exit %> 
+ <% include ../footer %>
